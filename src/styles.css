@@ -1,0 +1,23 @@
+.NoMovieFound {
+  text-align: center;
+  height: 200px;
+  font-size: xx-large;
+  padding-top: 50px;
+}
+
+.PageNotFound .title {
+  padding-top: 30px;
+  text-align: center;
+  height: 70px;
+}
+
+.PageNotFound .code {
+  text-align: center;
+  font-size: xx-large;
+  height: 70px;
+}
+
+.PageNotFound .button {
+  text-align: center;
+  height: 70px;
+}
