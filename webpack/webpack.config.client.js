@@ -7,15 +7,15 @@ const common = require('./webpack.config.common');
 const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = merge(common, {
-  /*target: 'web',
+  target: 'web',
 
   entry: [
     isDevMod && 'webpack-hot-middleware/client',
-    './src/client.js',
+    './src/index.js',
   ].filter(Boolean),
 
   plugins: [
     !isDevMod && new CleanWebpackPlugin(),
     isDevMod && new webpack.HotModuleReplacementPlugin(),
-  ].filter(Boolean),*/
+  ].filter(Boolean),
 });
