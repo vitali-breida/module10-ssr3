@@ -2,12 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isDevMod = process.env.NODE_ENV === 'development';
+
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js',
+    filename: 'main.js',
+    path: path.resolve('./public'),
   },
   module: {
     rules: [
@@ -38,11 +40,14 @@ module.exports = {
   },
   plugins : [
     new HtmlWebpackPlugin({
-        'title' : 'Mentoting program demo',
-        'template' : './public/index.html'
+        'title' : 'Mentoring program demo',
+        'template' : './src/index.html'
     }),
     new webpack.ProvidePlugin({
         "React": "react"
-     })
-  ]
+     }),
+  ],
+  /*optimization:{
+    moduleIds : 'named'
+  }*/
 };

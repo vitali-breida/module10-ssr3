@@ -9,12 +9,14 @@
     "@material-ui/icons": "4.11.2",
     "@reduxjs/toolkit": "1.5.1",
     "@testing-library/react": "11.2.6",
+    "express": "^4.17.1",
     "formik": "2.2.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-redux": "7.2.4",
     "react-router-dom": "5.2.0",
     "react-test-renderer": "17.0.2",
+    "webpack-merge": "^5.7.3",
     "yup": "0.32.9"
   },
   "devDependencies": {
@@ -22,16 +24,19 @@
     "@babel/preset-env": "^7.14.0",
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2.4",
     "html-webpack-plugin": "^5.3.1",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-hot-middleware": "^2.25.0"
   },
   "scripts": {
-    "build-dev": "webpack serve --mode=development",
-    "build-prod": "webpack --mode=production",
-    "webpack": "webpack"
+    "build-dev": "cross-env NODE_ENV=development webpack serve --config ./webpack",
+    "build-prod": "cross-env NODE_ENV=production webpack --config ./webpack"
   },
   "browserslist": [
     ">0.2%",
