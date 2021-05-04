@@ -1,6 +1,6 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import configureStore from './app/store';
+import createStore from './app/store';
 import App from './App';
 
 function renderHTML(html, preloadedState) {
@@ -9,7 +9,7 @@ function renderHTML(html, preloadedState) {
       <html>
         <head>
           <meta charset=utf-8>
-          <title>React Server Side Rendering</title>
+          <title>Movies demo</title>
           ${process.env.NODE_ENV === 'development' ? '' : '<link href="/css/main.css" rel="stylesheet" type="text/css">'}
         </head>
         <body>
@@ -27,10 +27,10 @@ function renderHTML(html, preloadedState) {
 
 export default function serverRenderer() {
   return (req, res) => {
-    const store = configureStore();
+     const store = createStore();
+
     // This context object contains the results of the render
     const context = {};
-
     const renderRoot = () => (
       <App
         context={context}
