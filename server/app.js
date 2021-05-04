@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
+/*if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -12,12 +12,12 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(webpackDevMiddleware(compiler));
   app.use(webpackHotMiddleware(compiler));
-} else {
+} else {*/
 
   const serverRenderer = require('../public/js/serverRenderer').default;
 
   app.use(express.static('public'));
   app.use(serverRenderer());
-}
+//}
 
 module.exports = app;

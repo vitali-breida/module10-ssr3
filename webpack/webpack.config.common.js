@@ -10,6 +10,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve('./public'),
+    libraryTarget : 'commonjs2'
   },
   module: {
     rules: [
@@ -42,9 +43,6 @@ module.exports = {
   plugins : [
     new webpack.ProvidePlugin({
         "React": "react"
-     }),
-  ],
-  /*optimization:{
-    moduleIds : 'named'
-  }*/
+     })
+  ]
 };

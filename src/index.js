@@ -1,16 +1,16 @@
-import store from "./app/store";
-import { StrictMode } from "react";
-import { Provider } from "react-redux";
 import App from "./App";
 import { hydrate } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from './app/store'
 
 const rootElement = document.getElementById("root");
+const store = configureStore(window.PRELOADED_STATE);
 
-hydrate(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
-  rootElement
-);
+const app =() => (
+  <App
+    Router={BrowserRouter}
+    store={store}
+  />
+)
+
+hydrate(app, rootElement);
