@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevMod = process.env.NODE_ENV === 'development';
 
@@ -20,7 +20,8 @@ module.exports = {
           loader: 'babel-loader',
            options: {
              presets: [
-                 '@babel/preset-react'
+                 '@babel/preset-react',
+                 '@babel/preset-env'
              ],
            }
         }
@@ -39,10 +40,6 @@ module.exports = {
     ]
   },
   plugins : [
-    new HtmlWebpackPlugin({
-        'title' : 'Mentoring program demo',
-        'template' : './src/index.html'
-    }),
     new webpack.ProvidePlugin({
         "React": "react"
      }),

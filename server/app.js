@@ -13,9 +13,11 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackDevMiddleware(compiler));
   app.use(webpackHotMiddleware(compiler));
 } else {
-  app.use(express.static('public'));
-}
 
-app.use(require('../src/serverRenderer'));
+  const serverRenderer = require('../public/js/serverRenderer').default;
+
+  app.use(express.static('public'));
+  app.use(serverRenderer());
+}
 
 module.exports = app;

@@ -16,6 +16,6 @@ module.exports = merge(common, {
 
   plugins: [
     !isDevMod && new CleanWebpackPlugin(),
-    isDevMod && new webpack.HotModuleReplacementPlugin(),
+    isDevMod && new webpack.HotModuleReplacementPlugin()
   ].filter(Boolean),
 });

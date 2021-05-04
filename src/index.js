@@ -1,12 +1,12 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 import store from "./app/store";
+import { StrictMode } from "react";
+import { Provider } from "react-redux";
 import App from "./App";
+import { hydrate } from 'react-dom';
 
 const rootElement = document.getElementById("root");
 
-ReactDOM.render(
+hydrate(
   <StrictMode>
     <Provider store={store}>
       <App />
