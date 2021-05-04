@@ -14,8 +14,8 @@ module.exports = merge(common, {
     './src/index.js',
   ].filter(Boolean),
 
-  plugins: [
+  /*plugins: [
     !isDevMod && new CleanWebpackPlugin(),
     isDevMod && new webpack.HotModuleReplacementPlugin()
-  ].filter(Boolean),
+  ].filter(Boolean),*/
 });
