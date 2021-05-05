@@ -27,17 +27,23 @@ module.exports = {
            }
         }
       },
-      {
-        test: /\.css$/,
-        use: [
-           {
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          }
-        ]
-      }      
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //      {
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: true
+      //       }
+      //     },
+      //     {
+      //       loader: 'style-loader',
+      //       options : {
+      //         esModule :true
+      //       }
+      //     }
+      //   ]
+      // }      
     ]
   },
   plugins : [

@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const common = require('./webpack.config.common');
 
@@ -10,5 +10,23 @@ module.exports = merge(common, {
   output: {
     filename: 'js/serverRenderer.js',
     libraryTarget: 'commonjs2',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        include: /src/,
+        use: [
+          {
+            loader: 'css-loader', // It doesn't embed CSS but only exports the identifier mappings.
+            options: {
+              modules: true,
+              // localIdentName: '[name]-[hash:5]',
+              // mode : 'local'
+            },
+          },
+        ],
+      },
+    ],
   },
 });
