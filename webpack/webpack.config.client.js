@@ -26,7 +26,6 @@ module.exports = merge(common, {
             loader: 'css-loader',
             options: {
               modules: true,
-              // localIdentName: '[name]-[hash:5]',
             },
           },
         ],
@@ -35,8 +34,9 @@ module.exports = merge(common, {
   },
   
   plugins: [
-  /*  !isDevMod && new CleanWebpackPlugin(),
-    isDevMod && new webpack.HotModuleReplacementPlugin()*/
+    !isDevMod && new CleanWebpackPlugin(),
+    isDevMod && new webpack.HotModuleReplacementPlugin(),
+
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     })

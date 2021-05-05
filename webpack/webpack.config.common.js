@@ -1,7 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = {
@@ -17,38 +15,18 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-           options: {
-             presets: [
-                 '@babel/preset-react',
-                 '@babel/preset-env'
-             ],
-           }
-        }
-      },
-      // {
-      //   test: /\.css$/,
-      //   use: [
-      //      {
-      //       loader: 'css-loader',
-      //       options: {
-      //         modules: true
-      //       }
-      //     },
-      //     {
-      //       loader: 'style-loader',
-      //       options : {
-      //         esModule :true
-      //       }
-      //     }
-      //   ]
-      // }      
+        loader: 'babel-loader',
+      }  
     ]
   },
   plugins : [
     new webpack.ProvidePlugin({
         "React": "react"
      })
-  ]
+  ],
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
+  }
 };

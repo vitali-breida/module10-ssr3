@@ -7,6 +7,7 @@ import PageNotFound from "./app/Pages/PageNotFound/PageNotFound";
 import HomePage from "./app/Pages/HomePage/HomePage";
 import { Provider } from "react-redux";
 import { StrictMode } from "react";
+import { hot } from 'react-hot-loader/root';
 
 const App = ({Router, location, context, store}) => {
   return (
@@ -33,4 +34,4 @@ App.defaultProps = {
   context: null,
 };
 
-export default App;
+export default hot(App);

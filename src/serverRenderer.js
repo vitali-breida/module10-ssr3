@@ -3,9 +3,8 @@ import { StaticRouter } from 'react-router-dom';
 import createStore from './app/store';
 import App from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ServerStyleSheets, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
+import { ServerStyleSheets, ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 function renderHTML(html, preloadedState, css) {
   return `
@@ -24,7 +23,7 @@ function renderHTML(html, preloadedState, css) {
             // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
             window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <!--script async src="/js/main.js"></script-->
+          <script async src="main.js"></script>
         </body>
       </html>
   `;
@@ -33,20 +32,10 @@ function renderHTML(html, preloadedState, css) {
 export default function serverRenderer() {
   return (req, res) => {
     const sheets = new ServerStyleSheets();
-  
-    // Create a theme instance.
-    const theme = createMuiTheme({
-      palette: {
-        primary: green,
-        accent: red,
-        type: 'light',
-      },
-    });
-  
     const store = createStore();
+    const context = {};
 
     // This context object contains the results of the render
-    const context = {};
     const renderRoot = () => (
       sheets.collect(
         <ThemeProvider theme={theme}>

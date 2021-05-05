@@ -5,6 +5,7 @@ import createStore from './app/store';
 import { createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 const rootElement = document.getElementById("root");
 const store = createStore(window.PRELOADED_STATE);
@@ -28,14 +29,5 @@ function Main() {
     </ThemeProvider>
   );
 }
-
-// Create a theme instance.
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-    accent: red,
-    type: 'light',
-  },
-});
 
 hydrate(<Main/>, rootElement);
