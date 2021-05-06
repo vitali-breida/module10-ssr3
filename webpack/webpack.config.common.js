@@ -4,12 +4,6 @@ const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: './src/index.js',
-  output: {
-    filename: 'main.js',
-    path: path.resolve('./public'),
-    libraryTarget : 'commonjs2'
-  },
   module: {
     rules: [
       {
@@ -28,5 +22,8 @@ module.exports = {
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, './public'),
   }
 };

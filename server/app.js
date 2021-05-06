@@ -1,23 +1,37 @@
 const express = require('express');
-
+const path = require('path');
 const app = express();
 
-//if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
   const webpackConfig = require('../webpack');
 
   const compiler = webpack(webpackConfig);
 
-  app.use(webpackDevMiddleware(compiler));
-  app.use(webpackHotMiddleware(compiler));
-//} else {*/
+  app.use(webpackDevMiddleware(compiler, {
+    serverSideRender: true
+  }));
+
+  // NOTE: Only the client bundle needs to be passed to `webpack-hot-middleware`.
+  app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')));
+  app.use(webpackHotServerMiddleware(compiler));
+} 
+else {
+  /*const CLIENT_ASSETS_DIR = path.join(__dirname, '../build/client');
+  const CLIENT_STATS_PATH = path.join(CLIENT_ASSETS_DIR, 'stats.json');
+  const SERVER_RENDERER_PATH = path.join(__dirname, '../public/js/serverRenderer.js');
+  const serverRenderer = require(SERVER_RENDERER_PATH);
+  const stats = require(CLIENT_STATS_PATH);
+  app.use(express.static(CLIENT_ASSETS_DIR));
+  app.use(serverRenderer(stats));*/
 
   const serverRenderer = require('../public/js/serverRenderer').default;
 
   app.use(express.static('public'));
   app.use(serverRenderer());
-//}
+}
 
 module.exports = app;

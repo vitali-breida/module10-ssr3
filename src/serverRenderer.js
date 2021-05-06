@@ -14,7 +14,7 @@ function renderHTML(html, preloadedState, css) {
           <meta charset=utf-8>
           <title>Movies demo</title>
           <style id="jss-server-side">${css}</style>
-          <link href="/css/main.css" rel="stylesheet" type="text/css">
+          ${process.env.NODE_ENV === 'development' ? '' : '<link href="/css/main.css" rel="stylesheet" type="text/css">'}
         </head>
         <body>
           <div id="root">${html}</div>
@@ -23,7 +23,7 @@ function renderHTML(html, preloadedState, css) {
             // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
             window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <script async src="main.js"></script>
+          <script src="/js/main.js"></script>
         </body>
       </html>
   `;
