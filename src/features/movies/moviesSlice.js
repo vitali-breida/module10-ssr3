@@ -1,14 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import store from "../../app/store";
 require('isomorphic-fetch');
 
 //configuration
 const serverUrl = "http://localhost:4000/movies";
 const sortByDefault = "vote_average";
 
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
+export const fetchMovies = createAsyncThunk("movies/fetchMovies", async (dispatch, thunkAPI) => {
   let url = serverUrl;
-  let state = store.getState();
+  let state = thunkAPI.getState();
 
   //sorting
   let sortBy = state.movies.sortBy;

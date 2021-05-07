@@ -23,6 +23,7 @@ module.exports = {
       'react-dom': '@hot-loader/react-dom'
     }
   },
+  devtool : 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
     hot: true
