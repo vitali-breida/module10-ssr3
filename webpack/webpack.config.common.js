@@ -25,5 +25,9 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
+    hot: true
+  },
+  optimization : {
+    moduleIds : isDevMod ? 'named' : 'deterministic'
   }
 };

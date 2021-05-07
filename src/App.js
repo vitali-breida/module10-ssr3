@@ -11,7 +11,7 @@ import { hot } from 'react-hot-loader/root';
 
 const App = ({Router, location, context, store}) => {
   return (
-    <StrictMode>
+    // <StrictMode>
       <Provider store={store}>
         <Router location={location} context={context}>
           <AddMovieDialog />
@@ -26,7 +26,8 @@ const App = ({Router, location, context, store}) => {
           </Switch>
         </Router>
       </Provider>
-    </StrictMode>)
+    // </StrictMode>
+    )
 }
 
 App.defaultProps = {

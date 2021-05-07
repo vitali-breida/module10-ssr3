@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import store from "../../app/store";
+require('isomorphic-fetch');
 
 //configuration
 const serverUrl = "http://localhost:4000/movies";

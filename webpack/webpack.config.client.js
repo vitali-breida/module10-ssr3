@@ -10,11 +10,16 @@ const isDevMod = process.env.NODE_ENV === 'development';
 module.exports = merge(common, {
   name : 'client',
   target: 'web',
-  entry: './src/index.js',
+
+  entry: [
+    isDevMod && 'webpack-hot-middleware/client',
+    './src/index.js',
+  ].filter(Boolean),
+
   output: {
     filename: 'js/[name].js',
     path: path.resolve('./public'),
-    libraryTarget : 'commonjs2'
+    // libraryTarget : 'commonjs2'
   },  
 
   module: {
@@ -36,8 +41,8 @@ module.exports = merge(common, {
   },
   
   plugins: [
-    /*!isDevMod && new CleanWebpackPlugin(),
-    isDevMod && new webpack.HotModuleReplacementPlugin(),*/
+    /*!isDevMod && new CleanWebpackPlugin(),*/
+    isDevMod && new webpack.HotModuleReplacementPlugin(),
 
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
