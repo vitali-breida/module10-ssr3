@@ -14,7 +14,7 @@ module.exports = {
     ]
   },
   plugins : [
-    new webpack.ProvidePlugin({
+     new webpack.ProvidePlugin({
         "React": "react"
      })
   ],
@@ -30,8 +30,8 @@ module.exports = {
   },
   optimization : {
     moduleIds : isDevMod ? 'named' : 'deterministic',
-    // splitChunks : {
-    //   chunks : 'all'
-    // }
+    splitChunks : {
+      chunks : 'all'
+    }
   }
 };

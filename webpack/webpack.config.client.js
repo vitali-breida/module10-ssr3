@@ -4,7 +4,7 @@ const { merge } = require('webpack-merge');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const common = require('./webpack.config.common');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const ReactLoadableSSRAddon = require('react-loadable-ssr-addon');
 const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = merge(common, {
@@ -37,6 +37,9 @@ module.exports = merge(common, {
 
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
+    }),
+    new ReactLoadableSSRAddon({
+      filename: 'assets-manifest.json',
     })
   ].filter(Boolean),
   

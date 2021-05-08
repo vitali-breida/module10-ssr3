@@ -5,6 +5,7 @@ import createStore from './app/store';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
+import Loadable from 'react-loadable';
 
 const rootElement = document.getElementById("root");
 const store = createStore(window.PRELOADED_STATE);
@@ -28,4 +29,6 @@ function Main() {
   );
 }
 
-hydrate(<Main/>, rootElement);
+Loadable.preloadReady().then(() => {
+  hydrate(<Main />, rootElement)
+})

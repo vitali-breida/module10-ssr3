@@ -2,6 +2,9 @@ const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const common = require('./webpack.config.common');
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isDevMod = process.env.NODE_ENV === 'development';
+const webpack = require('webpack');
 
 module.exports = merge(common, {
   name: 'server',
@@ -19,15 +22,17 @@ module.exports = merge(common, {
       {
         test: /\.css$/,
         include: /src/,
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-            },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
     ],
   },
+
+  plugins: [
+    // !isDevMod && new CleanWebpackPlugin(),
+    isDevMod && new webpack.HotModuleReplacementPlugin(),
+
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    })
+  ].filter(Boolean),  
 });

@@ -6,16 +6,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import routes from './routes';
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable-ssr-addon';
+import manifest from '../public/assets-manifest.json';
 
-function renderHTML(html, preloadedState, css) {
+function renderHTML(html, preloadedState, cssMaterialUI, loadableStyles, loadableScripts) {
   return `
       <!DOCTYPE html>
       <html lang="en">
         <head>
           <meta charset=utf-8>
           <title>Movies demo</title>
-          <style id="jss-server-side">${css}</style>
-          ${process.env.NODE_ENV === 'development' ? '' : '<link href="/css/main.css" rel="stylesheet" type="text/css">'}
+          <style id="jss-server-side">${cssMaterialUI}</style>
+
+          ${loadableStyles.map(style => {
+            return `<link href="/${style.file}" rel="stylesheet" />`;
+          }).join('\n')}
         </head>
         <body>
           <div id="root">${html}</div>
@@ -24,7 +30,9 @@ function renderHTML(html, preloadedState, css) {
             // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
             window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <script src="/js/main.js"></script>
+          ${loadableScripts.map(script => {
+            return `<script src="/${script.file}"></script>`
+          }).join('\n')}
         </body>
       </html>
   `;
@@ -32,6 +40,10 @@ function renderHTML(html, preloadedState, css) {
 
 export default function serverRenderer() {
   return (req, res) => {
+    if (req.path.endsWith('/favicon.ico')) {
+      return;
+    }
+
     const store = createStore();
     const promises = [];
 
@@ -44,18 +56,21 @@ export default function serverRenderer() {
     Promise.all(promises).then(data => {
       const sheets = new ServerStyleSheets();
       const context = {};
+      const modules = new Set();
 
       // This context object contains the results of the render
       const renderRoot = () => (
         sheets.collect(
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <App
-              context={context}
-              location={req.url}
-              Router={StaticRouter}
-              store={store}
-            />
+            <Loadable.Capture report={moduleName => modules.add(moduleName)}>
+              <App
+                context={context}
+                location={req.url}
+                Router={StaticRouter}
+                store={store}
+              />
+            </Loadable.Capture>
           </ThemeProvider>
         )
       );
@@ -73,9 +88,18 @@ export default function serverRenderer() {
 
       const htmlString = renderToString(renderRoot());
       const preloadedState = store.getState();
-      const css = sheets.toString();
+      const cssMaterialUI = sheets.toString();
 
-      res.send(renderHTML(htmlString, preloadedState, css));
+      // now we concatenate the loaded `modules` from react-loadable `Loadable.Capture` method
+      // with our application entry point
+      const modulesToBeLoaded = [...Array.from(modules), ...manifest.entrypoints]   
+      const bundles = getBundles(manifest, modulesToBeLoaded);
+
+      // so it's easy to implement it
+      const loadableStyles = bundles.css || [];
+      const loadableScripts = bundles.js || [];
+
+      res.send(renderHTML(htmlString, preloadedState, cssMaterialUI, loadableStyles, loadableScripts));
     });
   };
 }
