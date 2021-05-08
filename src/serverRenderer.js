@@ -1,10 +1,11 @@
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter, matchPath } from 'react-router-dom';
 import createStore from './app/store';
 import App from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
+import routes from './routes';
 
 function renderHTML(html, preloadedState, css) {
   return `
@@ -31,15 +32,23 @@ function renderHTML(html, preloadedState, css) {
 
 export default function serverRenderer() {
   return (req, res) => {
-    const sheets = new ServerStyleSheets();
     const store = createStore();
-    const context = {};
+    const promises = [];
 
-    // This context object contains the results of the render
-    const renderRoot = () => (
-      sheets.collect(
-        <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    routes.some(route => {
+      const match = matchPath(req.path, route);
+      if (match && !!route.loadData) promises.push(Promise.resolve(route.loadData(match, store)));
+      return match;
+    });
+
+    Promise.all(promises).then(data => {
+      const sheets = new ServerStyleSheets();
+      const context = {};
+
+      // This context object contains the results of the render
+      const renderRoot = () => (
+        sheets.collect(
+          <ThemeProvider theme={theme}>
             <CssBaseline />
             <App
               context={context}
@@ -47,25 +56,26 @@ export default function serverRenderer() {
               Router={StaticRouter}
               store={store}
             />
-        </ThemeProvider>
-      )
-    );
+          </ThemeProvider>
+        )
+      );
 
-    renderToString(renderRoot());
+      renderToString(renderRoot());
 
-    // context.url will contain the URL to redirect to if a <Redirect> was used
-    if (context.url) {
-      res.writeHead(302, {
-        Location: context.url,
-      });
-      res.end();
-      return;
-    }
+      // context.url will contain the URL to redirect to if a <Redirect> was used
+      if (context.url) {
+        res.writeHead(302, {
+          Location: context.url,
+        });
+        res.end();
+        return;
+      }
 
-    const htmlString = renderToString(renderRoot());
-    const preloadedState = store.getState();
-    const css = sheets.toString();
+      const htmlString = renderToString(renderRoot());
+      const preloadedState = store.getState();
+      const css = sheets.toString();
 
-    res.send(renderHTML(htmlString, preloadedState, css));
+      res.send(renderHTML(htmlString, preloadedState, css));
+    });
   };
 }

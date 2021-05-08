@@ -16,7 +16,7 @@ export default () => {
   let { id /* film id */, keyword } = useParams();
 
   useEffect(() => {
-    if (!!keyword) {
+    if (!fetchWasRun && !!keyword) {
       dispatch(searchMovies(keyword));
       dispatch(fetchMovies());
     }
