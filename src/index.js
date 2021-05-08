@@ -2,7 +2,6 @@ import App from "./App";
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import createStore from './app/store';
-import { createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
@@ -20,7 +19,6 @@ function Main() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <App
         Router={BrowserRouter}
