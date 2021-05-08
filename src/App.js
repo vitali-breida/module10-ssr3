@@ -18,8 +18,9 @@ const App = ({ Router, location, context, store }) => {
         <DeleteMovieDialog />
 
         <Switch>
-          {routes.map((route) => (
+          {routes.map((route, i) => (
             <Route
+              key={route.key || i}
               path={route.path}
               exact={route.exact}
               component={route.component} />

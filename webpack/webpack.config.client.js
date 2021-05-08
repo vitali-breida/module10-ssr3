@@ -18,8 +18,7 @@ module.exports = merge(common, {
 
   output: {
     filename: 'js/[name].js',
-    path: path.resolve('./public'),
-    // libraryTarget : 'commonjs2'
+    path: path.resolve('./public')
   },  
 
   module: {
@@ -27,25 +26,18 @@ module.exports = merge(common, {
       {
         test: /\.css$/,
         include: /src/,
-        use: [
-          isDevMod ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-            },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
     ],
   },
   
   plugins: [
-    /*!isDevMod && new CleanWebpackPlugin(),*/
+    // !isDevMod && new CleanWebpackPlugin(),
     isDevMod && new webpack.HotModuleReplacementPlugin(),
 
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     })
   ].filter(Boolean),
+  
 });
