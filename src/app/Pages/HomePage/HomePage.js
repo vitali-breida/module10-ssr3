@@ -12,23 +12,20 @@ import { useEffect } from "react";
 
 export default () => {
   let dispatch = useDispatch();
-  let fetchWasRun = useSelector((state) => state.movies.fetchWasRun);
+  // let fetchWasRun = useSelector((state) => state.movies.fetchWasRun);
+  let search = useSelector((state) => state.movies.search);
   let { id /* film id */, keyword } = useParams();
 
   useEffect(() => {
-    if (!!keyword) {
+    if (!!keyword && (keyword !== search)) {
       dispatch(searchMovies(keyword));
       dispatch(fetchMovies());
     }
 
     if (!!id) {
-      //check if fetch was before if open by direct link
-      if (!fetchWasRun) {
-        dispatch(fetchMovies());
-      }
-      dispatch(infoMode({ mode: "on", id: parseInt(id, 10) }));
+       dispatch(infoMode({ mode: "on", id: parseInt(id, 10) }));
     }
-  }, [keyword, id, dispatch, fetchWasRun]);
+   }, [keyword, id, dispatch, search]);
 
   return (
     <>

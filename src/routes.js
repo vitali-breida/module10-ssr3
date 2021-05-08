@@ -5,12 +5,17 @@ import {
     searchMovies,
     fetchMovies
 } from "./features/movies/moviesSlice";
+import { infoMode } from "./features/dialogs/dialogsSlice";
+import { CodeSharp } from '@material-ui/icons';
 
 const routes = [
     {
         path: '/',
         exact: true,
-        component: HomePage
+        component: HomePage,
+        loadData: (match, store) => {
+            return store.dispatch(fetchMovies());
+        }
     },
     {
         path: '/search/:keyword',
@@ -23,7 +28,12 @@ const routes = [
     },
     {
         path: '/film/:id',
-        component: HomePage
+        component: HomePage,
+        loadData: (match, store) => {
+            const id = match.params.id;
+            store.dispatch(infoMode({ mode: "on", id: parseInt(id, 10) }));
+            return store.dispatch(fetchMovies());
+        }
     },
     {
         path: '*',
