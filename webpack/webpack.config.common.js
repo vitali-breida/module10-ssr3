@@ -29,9 +29,10 @@ module.exports = {
     hot: true
   },
   optimization : {
-    moduleIds : isDevMod ? 'named' : 'deterministic',
+    moduleIds : isDevMod ? 'named' : 'size',
     splitChunks : {
       chunks : 'all'
-    }
+    },
+    chunkIds : isDevMod ? 'named' : 'size',
   }
 };
