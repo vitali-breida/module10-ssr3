@@ -6,7 +6,6 @@ import {
     fetchMovies
 } from "./features/movies/moviesSlice";
 import { infoMode } from "./features/dialogs/dialogsSlice";
-import { CodeSharp } from '@material-ui/icons';
 
 const routes = [
     {
