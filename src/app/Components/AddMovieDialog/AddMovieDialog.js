@@ -1,21 +1,10 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, FormControl, FormHelperText } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsAddMovieDialogVisible,
-  dialogAddMovie
-} from "../../../features/dialogs/dialogsSlice";
+import { selectIsAddMovieDialogVisible, dialogAddMovie } from "../../../features/dialogs/dialogsSlice";
 import { addMovie } from "../../../features/movies/moviesSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
-import { FormControl, FormHelperText } from "@material-ui/core";
 import { validationSchema } from "../../yup";
 
 export default function AddMovieDialog(props) {

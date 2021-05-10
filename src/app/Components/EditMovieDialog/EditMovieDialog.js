@@ -1,22 +1,7 @@
 import React, { useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import {
-  selectIsEditMovieDialogVisible,
-  dialogEditMovie
-} from "../../../features/dialogs/dialogsSlice";
-import {
-  selectEditedMovie,
-  editMovie
-} from "../../../features/movies/moviesSlice";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, FormControl, FormHelperText } from "@material-ui/core";
+import { selectIsEditMovieDialogVisible, dialogEditMovie } from "../../../features/dialogs/dialogsSlice";
+import { selectEditedMovie, editMovie } from "../../../features/movies/moviesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useFormik } from "formik";

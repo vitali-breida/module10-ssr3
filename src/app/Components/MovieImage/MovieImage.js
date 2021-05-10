@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { Menu, MenuItem } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  dialogDeleteMovie,
-  dialogEditMovie,
-  selectIsMovieInfoMode,
-  selectSelectedMovieId
-} from "../../../features/dialogs/dialogsSlice";
+import { dialogDeleteMovie, dialogEditMovie, selectIsMovieInfoMode, selectSelectedMovieId } from "../../../features/dialogs/dialogsSlice";
 import { useHistory } from "react-router-dom";
 
 export default function MovieImage(props) {

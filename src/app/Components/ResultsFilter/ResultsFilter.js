@@ -1,12 +1,6 @@
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import { FormGroup, FormControlLabel, Switch } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchMovies,
-  filterMovies,
-  skipFiltering
-} from "../../../features/movies/moviesSlice";
+import { fetchMovies, filterMovies, skipFiltering } from "../../../features/movies/moviesSlice";
 
 let filters = ["Documentary", "Comedy", "Horror", "Crime"];
 export default function ResultsFilter() {

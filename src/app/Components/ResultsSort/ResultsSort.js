@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import { Button, Menu, MenuItem } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchMovies,
-  selectSortBy,
-  sortMovies
-} from "../../../features/movies/moviesSlice";
+import { fetchMovies, selectSortBy, sortMovies } from "../../../features/movies/moviesSlice";
 
 export default function ResultsSort(props) {
   const [anchorEl, setAnchorEl] = useState(null);

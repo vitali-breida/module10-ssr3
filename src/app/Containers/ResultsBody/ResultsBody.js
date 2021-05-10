@@ -1,6 +1,5 @@
 import MovieCard from "../MovieCard/MovieCard";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
+import { GridList, GridListTile } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 export default function ResultsBody(props) {

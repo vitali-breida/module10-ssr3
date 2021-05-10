@@ -1,4 +1,3 @@
-import { matchPath } from 'react-router';
 import HomePage from './app/Pages/HomePage/HomePage';
 import PageNotFound from './app/Pages/PageNotFound/PageNotFound';
 import {
