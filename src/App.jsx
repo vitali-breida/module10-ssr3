@@ -6,11 +6,11 @@ import { hot } from 'react-hot-loader/root';
 import routes from './routes'
 import loadable from '@loadable/component'
 
-const AddMovieDialog = loadable(() => import('./app/Components/AddMovieDialog/AddMovieDialog'));
-const EditMovieDialog = loadable(() => import('./app/Components/EditMovieDialog/EditMovieDialog'));
-const DeleteMovieDialog = loadable(() => import('./app/Components/DeleteMovieDialog/DeleteMovieDialog'));
+const AddMovieDialog = loadable(() => import('./app/Components/AddMovieDialog'));
+const EditMovieDialog = loadable(() => import('./app/Components/EditMovieDialog'));
+const DeleteMovieDialog = loadable(() => import('./app/Components/DeleteMovieDialog'));
 
-const app = ({ Router, location, context, store }) => {
+const App = ({ Router, location, context, store }) => {
   return (
     // <StrictMode>
     <Provider store={store}>
@@ -35,9 +35,9 @@ const app = ({ Router, location, context, store }) => {
   )
 }
 
-app.defaultProps = {
+App.defaultProps = {
   location: null,
   context: null,
 };
 
-export default hot(app);
+export default hot(App);

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import moviesReducer from "../features/movies/moviesSlice";
-import dialogsReducer from "../features/dialogs/dialogsSlice";
+import moviesReducer from "../features/moviesSlice";
+import dialogsReducer from "../features/dialogsSlice";
 
 const createStore = (preloadedState) =>{
   return configureStore({

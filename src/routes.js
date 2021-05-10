@@ -1,7 +1,7 @@
-import HomePage from "./app/Pages/HomePage/HomePage";
-import PageNotFound from "./app/Pages/PageNotFound/PageNotFound";
-import { searchMovies, fetchMovies } from "./features/movies/moviesSlice";
-import { infoMode } from "./features/dialogs/dialogsSlice";
+import HomePage from "./app/Pages/HomePage";
+import PageNotFound from "./app/Pages/PageNotFound";
+import { searchMovies, fetchMovies } from "./features/moviesSlice";
+import { infoMode } from "./features/dialogsSlice";
 
 const routes = [
   {
