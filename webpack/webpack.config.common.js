@@ -1,8 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const isDevMod = process.env.NODE_ENV === 'development';
-// const LoadablePlugin = require('@loadable/webpack-plugin')
-//__webpack_public_path__ = 'public'
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -18,8 +16,7 @@ module.exports = {
   plugins : [
      new webpack.ProvidePlugin({
         "React": "react"
-     }),
-    //  new LoadablePlugin()
+     })
   ],
   resolve: {
     alias: {
