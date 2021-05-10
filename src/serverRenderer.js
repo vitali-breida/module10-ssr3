@@ -6,11 +6,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import routes from './routes';
-import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable-ssr-addon';
-import manifest from '../public/assets-manifest.json';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 
-function renderHTML(html, preloadedState, cssMaterialUI, loadableStyles, loadableScripts) {
+function renderHTML(html, preloadedState, cssMaterialUI, styles, scripts) {
   return `
       <!DOCTYPE html>
       <html lang="en">
@@ -18,10 +16,7 @@ function renderHTML(html, preloadedState, cssMaterialUI, loadableStyles, loadabl
           <meta charset=utf-8>
           <title>Movies demo</title>
           <style id="jss-server-side">${cssMaterialUI}</style>
-
-          ${loadableStyles.map(style => {
-            return `<link href="/${style.file}" rel="stylesheet" />`;
-          }).join('\n')}
+          ${styles}
         </head>
         <body>
           <div id="root">${html}</div>
@@ -30,9 +25,7 @@ function renderHTML(html, preloadedState, cssMaterialUI, loadableStyles, loadabl
             // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
             window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          ${loadableScripts.map(script => {
-            return `<script src="/${script.file}"></script>`
-          }).join('\n')}
+          ${scripts}
         </body>
       </html>
   `;
@@ -41,11 +34,16 @@ function renderHTML(html, preloadedState, cssMaterialUI, loadableStyles, loadabl
 export default function serverRenderer() {
   return (req, res) => {
     if (req.path.endsWith('/favicon.ico')) {
+      res.writeHead(200, {'Content-Type': 'image/x-icon'} );
+      res.end();
       return;
     }
 
     const store = createStore();
     const promises = [];
+    const path = require('path');
+    const statsFile = path.resolve('public/loadable-stats.json')
+    const extractor = new ChunkExtractor({ statsFile, publicPath : '/' })
 
     routes.some(route => {
       const match = matchPath(req.path, route);
@@ -56,28 +54,24 @@ export default function serverRenderer() {
     Promise.all(promises).then(data => {
       const sheets = new ServerStyleSheets();
       const context = {};
-      const modules = new Set();
-
-      // This context object contains the results of the render
       const renderRoot = () => (
         sheets.collect(
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Loadable.Capture report={moduleName => modules.add(moduleName)}>
+          <ChunkExtractorManager extractor={extractor}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
               <App
                 context={context}
                 location={req.url}
                 Router={StaticRouter}
                 store={store}
               />
-            </Loadable.Capture>
-          </ThemeProvider>
+            </ThemeProvider>
+          </ChunkExtractorManager>
         )
       );
 
       renderToString(renderRoot());
 
-      // context.url will contain the URL to redirect to if a <Redirect> was used
       if (context.url) {
         res.writeHead(302, {
           Location: context.url,
@@ -89,17 +83,10 @@ export default function serverRenderer() {
       const htmlString = renderToString(renderRoot());
       const preloadedState = store.getState();
       const cssMaterialUI = sheets.toString();
+      const scripts = extractor.getScriptTags();
+      const styles = extractor.getStyleTags();
 
-      // now we concatenate the loaded `modules` from react-loadable `Loadable.Capture` method
-      // with our application entry point
-      const modulesToBeLoaded = [...Array.from(modules), ...manifest.entrypoints]   
-      const bundles = getBundles(manifest, modulesToBeLoaded);
-
-      // so it's easy to implement it
-      const loadableStyles = bundles.css || [];
-      const loadableScripts = bundles.js || [];
-
-      res.send(renderHTML(htmlString, preloadedState, cssMaterialUI, loadableStyles, loadableScripts));
+      res.send(renderHTML(htmlString, preloadedState, cssMaterialUI, styles, scripts));
     });
   };
 }

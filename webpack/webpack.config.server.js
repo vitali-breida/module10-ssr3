@@ -5,6 +5,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDevMod = process.env.NODE_ENV === 'development';
 const webpack = require('webpack');
+// const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = merge(common, {
   name: 'server',
@@ -28,7 +29,7 @@ module.exports = merge(common, {
   },
 
   plugins: [
-    // !isDevMod && new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     isDevMod && new webpack.HotModuleReplacementPlugin(),
 
     new MiniCssExtractPlugin({

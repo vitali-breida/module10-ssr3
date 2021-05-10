@@ -194,7 +194,7 @@ export default function EditMovieDialog() {
               variant="outlined"
               placeholder="Runtime text goes here"
               fullWidth
-              value={formik.values.runtime}
+              value={formik.values.runtime ?? 0}
               onChange={formik.handleChange}
               error={formik.touched.runtime && Boolean(formik.errors.runtime)}
               helperText={formik.touched.runtime && formik.errors.runtime}

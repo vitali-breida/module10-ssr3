@@ -1,27 +1,21 @@
 import "./styles.css";
-// import AddMovieDialog from "./app/Components/AddMovieDialog/AddMovieDialog";
-import EditMovieDialog from "./app/Components/EditMovieDialog/EditMovieDialog";
-import DeleteMovieDialog from "./app/Components/DeleteMovieDialog/DeleteMovieDialog";
 import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { StrictMode } from "react";
 import { hot } from 'react-hot-loader/root';
 import routes from './routes'
-import Loadable from 'react-loadable';
+import loadable from '@loadable/component'
 
-const LoadableAddMovieDialog = Loadable({
-  loader : () => import('./app/Components/AddMovieDialog/AddMovieDialog'),
-  loading() {
-    return <div>Loading...</div>
-  }
-});
+const AddMovieDialog = loadable(() => import('./app/Components/AddMovieDialog/AddMovieDialog'));
+const EditMovieDialog = loadable(() => import('./app/Components/EditMovieDialog/EditMovieDialog'));
+const DeleteMovieDialog = loadable(() => import('./app/Components/DeleteMovieDialog/DeleteMovieDialog'));
 
 const App = ({ Router, location, context, store }) => {
   return (
     // <StrictMode>
     <Provider store={store}>
       <Router location={location} context={context}>
-        <LoadableAddMovieDialog />
+        <AddMovieDialog />
         <EditMovieDialog />
         <DeleteMovieDialog />
 

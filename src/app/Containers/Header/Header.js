@@ -18,7 +18,7 @@ export default function Header(props) {
             <Grid item xs={10}>
               <Logo />
             </Grid>
-            <Grid item={2}>
+            <Grid item xs={2}>
               <SearchIcon />
             </Grid>
           </Grid>
