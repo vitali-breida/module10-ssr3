@@ -7,7 +7,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       }  
@@ -19,6 +19,7 @@ module.exports = {
      })
   ],
   resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }
