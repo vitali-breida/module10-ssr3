@@ -10,7 +10,7 @@ const AddMovieDialog = loadable(() => import('./app/Components/AddMovieDialog/Ad
 const EditMovieDialog = loadable(() => import('./app/Components/EditMovieDialog/EditMovieDialog'));
 const DeleteMovieDialog = loadable(() => import('./app/Components/DeleteMovieDialog/DeleteMovieDialog'));
 
-const App = ({ Router, location, context, store }) => {
+const app = ({ Router, location, context, store }) => {
   return (
     // <StrictMode>
     <Provider store={store}>
@@ -35,9 +35,9 @@ const App = ({ Router, location, context, store }) => {
   )
 }
 
-App.defaultProps = {
+app.defaultProps = {
   location: null,
   context: null,
 };
 
-export default hot(App);
+export default hot(app);

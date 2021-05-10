@@ -3,7 +3,7 @@ import Logo from "../../Components/Logo/Logo";
 import { Button } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
-export default () => {
+export default function PageNotFound() {
   return (
     <div className="PageNotFound">
       <Logo />
