@@ -34,6 +34,8 @@ function renderHTML(html, preloadedState, cssMaterialUI, styles, scripts) {
 export default function serverRenderer() {
   return (req, res) => {
     if (req.path.endsWith('/favicon.ico')) {
+      res.writeHead(200, {'Content-Type': 'image/x-icon'} );
+      res.end();
       return;
     }
 
@@ -70,7 +72,6 @@ export default function serverRenderer() {
 
       renderToString(renderRoot());
 
-      // context.url will contain the URL to redirect to if a <Redirect> was used
       if (context.url) {
         res.writeHead(302, {
           Location: context.url,
