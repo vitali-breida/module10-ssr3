@@ -32,10 +32,10 @@ module.exports = {
     hot: true
   },
   optimization : {
-    // moduleIds : isDevMod ? 'named' : 'size',
-    // splitChunks : {
-    //   chunks : 'all'
-    // },
-    // chunkIds : isDevMod ? 'named' : 'size',
+    moduleIds : isDevMod ? 'named' : 'size',
+    splitChunks : {
+      chunks : 'all'
+    },
+    chunkIds : isDevMod ? 'named' : 'size',
   }
 };
