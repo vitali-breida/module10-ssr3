@@ -10,7 +10,7 @@ const webpack = require('webpack');
 module.exports = merge(common, {
   name: 'server',
   target: 'node',
-  entry: './src/serverRenderer.jsx',
+  entry: './src/ServerRenderer.jsx',
   externals: [nodeExternals()],
   output: {
     filename: 'js/serverRenderer.js',
