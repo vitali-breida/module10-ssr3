@@ -20,13 +20,13 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotServerMiddleware(compiler));
 } 
 else {
-  /*const CLIENT_ASSETS_DIR = path.join(__dirname, '../build/client');
-  const CLIENT_STATS_PATH = path.join(CLIENT_ASSETS_DIR, 'stats.json');
-  const SERVER_RENDERER_PATH = path.join(__dirname, '../public/js/serverRenderer.js');
-  const serverRenderer = require(SERVER_RENDERER_PATH);
-  const stats = require(CLIENT_STATS_PATH);
-  app.use(express.static(CLIENT_ASSETS_DIR));
-  app.use(serverRenderer(stats));*/
+  // const CLIENT_ASSETS_DIR = path.join(__dirname, '../public');
+  // const CLIENT_STATS_PATH = path.join(CLIENT_ASSETS_DIR, 'loadable-stats.json');
+  // const SERVER_RENDERER_PATH = path.join(__dirname, '../public/js/serverRenderer.js').dafault;
+  // const serverRenderer = require(SERVER_RENDERER_PATH);
+  // const stats = require(CLIENT_STATS_PATH);
+  // app.use(express.static(CLIENT_ASSETS_DIR));
+  // app.use(serverRenderer(stats));
 
   const serverRenderer = require('../public/js/serverRenderer').default;
 
