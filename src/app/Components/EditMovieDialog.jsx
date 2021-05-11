@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, FormControl, FormHelperText } from "@material-ui/core";
-import { selectIsEditMovieDialogVisible, dialogEditMovie } from "../../features/dialogsSlice";
-import { selectEditedMovie, editMovie } from "../../features/moviesSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useFormik } from "formik";
-import { validationSchema } from "../yup";
+import React, { useEffect } from 'react';
+import {
+  Button, TextField, Dialog, DialogActions, DialogContent,
+  DialogTitle, MenuItem, Select, FormControl, FormHelperText
+} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useFormik } from 'formik';
+import { selectEditedMovie, editMovie } from '../../features/moviesSlice';
+import { selectIsEditMovieDialogVisible, dialogEditMovie } from '../../features/dialogsSlice';
+import { validationSchema } from '../yup';
 
 export default function EditMovieDialog() {
   const isEditMovieDialogVisible = useSelector(selectIsEditMovieDialogVisible);
@@ -14,14 +17,14 @@ export default function EditMovieDialog() {
 
   const formik = useFormik({
     initialValues: {
-      title: !!movie ? movie.title : "",
-      movieUrl: !!movie ? movie.movieUrl : "",
-      overview: !!movie ? movie.overview : "",
-      runtime: !!movie ? movie.runtime : 90,
-      releaseDate: !!movie ? movie.release_date : "2014-03-11",
-      genres: !!movie ? movie.genres : []
+      title: movie ? movie.title : '',
+      movieUrl: movie ? movie.movieUrl : '',
+      overview: movie ? movie.overview : '',
+      runtime: movie ? movie.runtime : 90,
+      releaseDate: movie ? movie.release_date : '2014-03-11',
+      genres: movie ? movie.genres : []
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const resultAction = await dispatch(
@@ -41,15 +44,17 @@ export default function EditMovieDialog() {
           })
         );
         unwrapResult(resultAction);
+        // eslint-disable-next-line no-use-before-define
         handleClose();
       } catch (err) {
-        alert("Failed to edit a movie: " + err.message);
+        // eslint-disable-next-line no-alert
+        alert(`Failed to edit a movie: ${err.message}`);
       }
     }
   });
 
   useEffect(() => {
-    if (!!movie) {
+    if (movie) {
       formik.setValues({
         title: movie.title,
         movieUrl: movie.poster_path,
@@ -61,8 +66,8 @@ export default function EditMovieDialog() {
     }
   }, [movie]);
 
-  function handleClose(e) {
-    dispatch(dialogEditMovie("close"));
+  function handleClose() {
+    dispatch(dialogEditMovie('close'));
   }
 
   return (

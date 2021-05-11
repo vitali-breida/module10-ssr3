@@ -1,7 +1,7 @@
-import { TextField, Box, Button } from "@material-ui/core";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { TextField, Box, Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Search() {
   const search = useSelector((state) => state.movies.search);
@@ -23,7 +23,7 @@ export default function Search() {
         color="secondary"
         variant="contained"
         component={RouterLink}
-        to={"/search/".concat(encodeURIComponent(text))}
+        to={'/search/'.concat(encodeURIComponent(text))}
         disabled={!text}
       >
         Search

@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Button } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { dialogAddMovie } from "../../features/dialogsSlice";
+import React from 'react';
+import { Box, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { dialogAddMovie } from '../../features/dialogsSlice';
 
 export default function AddMovieButton() {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ export default function AddMovieButton() {
   return (
     <>
       <Box display="flex" justifyContent="flex-end">
-        <Button onClick={() => dispatch(dialogAddMovie("open"))}>
+        <Button onClick={() => dispatch(dialogAddMovie('open'))}>
           + Add movie
         </Button>
       </Box>

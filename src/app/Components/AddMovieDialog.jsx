@@ -1,31 +1,33 @@
-import React from "react";
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, FormControl, FormHelperText } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsAddMovieDialogVisible, dialogAddMovie } from "../../features/dialogsSlice";
-import { addMovie } from "../../features/moviesSlice";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useFormik } from "formik";
-import { validationSchema } from "../yup";
+import React from 'react';
+import {
+  Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle,
+  MenuItem, Select, FormControl, FormHelperText
+} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useFormik } from 'formik';
+import { selectIsAddMovieDialogVisible, dialogAddMovie } from '../../features/dialogsSlice';
+import { addMovie } from '../../features/moviesSlice';
+import { validationSchema } from '../yup';
 
 export default function AddMovieDialog() {
   const isAddMovieDialogVisible = useSelector(selectIsAddMovieDialogVisible);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      title: "",
-      movieUrl: "",
-      overview: "",
+      title: '',
+      movieUrl: '',
+      overview: '',
       runtime: 90,
-      releaseDate: "2014-03-11",
-      genres: ["Drama"]
+      releaseDate: '2014-03-11',
+      genres: ['Drama']
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
       try {
         const resultAction = await dispatch(
           addMovie({
-            tagline: "Default tagline",
+            tagline: 'Default tagline',
             genres: values.genres,
             title: values.title,
             release_date: values.releaseDate,
@@ -35,15 +37,17 @@ export default function AddMovieDialog() {
           })
         );
         unwrapResult(resultAction);
+        // eslint-disable-next-line no-use-before-define
         handleClose();
       } catch (err) {
-        alert("Failed to add a movie: " + err.message);
+        // eslint-disable-next-line no-alert
+        alert(`Failed to add a movie: ${err.message}`);
       }
     }
   });
 
-  const handleClose = (e) => {
-    dispatch(dialogAddMovie("close"));
+  const handleClose = () => {
+    dispatch(dialogAddMovie('close'));
   };
 
   return (

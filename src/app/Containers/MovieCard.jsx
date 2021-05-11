@@ -1,8 +1,8 @@
-import MovieGenre from "../Components/MovieGenre";
-import MovieImage from "../Components/MovieImage";
-import MovieReleaseDate from "../Components/MovieReleaseDate";
-import MovieTitle from "../Components/MovieTitle";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import MovieGenre from '../Components/MovieGenre';
+import MovieImage from '../Components/MovieImage';
+import MovieReleaseDate from '../Components/MovieReleaseDate';
+import MovieTitle from '../Components/MovieTitle';
 
 export default function MovieCard(props) {
   return (
@@ -25,5 +25,5 @@ MovieCard.propTypes = {
 
 MovieCard.defaultProps = {
   imageUrl:
-    "https://s1.livelib.ru/boocover/1000530481/o/10c8/Quentin_Tarantino__Pulp_Fiction_A_Quentin_Tarantino_Screenplay.jpeg"
+    'https://s1.livelib.ru/boocover/1000530481/o/10c8/Quentin_Tarantino__Pulp_Fiction_A_Quentin_Tarantino_Screenplay.jpeg'
 };

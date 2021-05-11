@@ -1,13 +1,13 @@
-import AddMovieButton from "../Components/AddMovieButton";
-import Search from "../Components/Search";
-import MovieInfo from "../Components/MovieInfo";
-import Logo from "../Components/Logo";
-import Grid from "@material-ui/core/Grid";
-import SearchIcon from "../Components/SearchIcon";
-import { useSelector } from "react-redux";
-import { selectIsMovieInfoMode } from "../../features/dialogsSlice";
+import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
+import AddMovieButton from '../Components/AddMovieButton';
+import Search from '../Components/Search';
+import MovieInfo from '../Components/MovieInfo';
+import Logo from '../Components/Logo';
+import SearchIcon from '../Components/SearchIcon';
+import { selectIsMovieInfoMode } from '../../features/dialogsSlice';
 
-export default function Header(props) {
+export default function Header() {
   const isInfoMode = useSelector(selectIsMovieInfoMode);
 
   return (

@@ -1,92 +1,94 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 require('isomorphic-fetch');
 
-//configuration
-const serverUrl = "http://localhost:4000/movies";
-const sortByDefault = "vote_average";
+// configuration
+const serverUrl = 'http://localhost:4000/movies';
+const sortByDefault = 'vote_average';
 
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async (dispatch, thunkAPI) => {
+export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (dispatch, thunkAPI) => {
   let url = serverUrl;
-  let state = thunkAPI.getState();
+  const state = thunkAPI.getState();
 
-  //sorting
-  let sortBy = state.movies.sortBy;
+  // sorting
+  let { sortBy } = state.movies;
   if (!sortBy) {
     sortBy = sortByDefault;
   }
-  url += "?sortBy=" + sortBy + "&sortOrder=asc";
+  url += `?sortBy=${sortBy}&sortOrder=asc`;
 
-  //filtering
-  let filterBy = state.movies.filterBy;
+  // filtering
+  const { filterBy } = state.movies;
   if (filterBy.length > 0) {
-    url += "&filter=" + filterBy.join("%2C");
+    url += `&filter=${filterBy.join('%2C')}`;
   }
 
-  //search
-  let search = state.movies.search;
-  if (search !== "") {
-    url += "&search=" + search + "&searchBy=title";
+  // search
+  const { search } = state.movies;
+  if (search !== '') {
+    url += `&search=${search}&searchBy=title`;
   }
 
   // pagination
-  url += "&offset=0&limit=6";
+  url += '&offset=0&limit=6';
 
   const response = await fetch(url);
   const movies = response.json();
   return movies;
 });
 
-export const addMovie = createAsyncThunk("movies/addMovie", async (payload) => {
+export const addMovie = createAsyncThunk('movies/addMovie', async (payload) => {
   const response = await fetch(serverUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
   });
 
   const json = await response.json();
-  if (!!json.messages) {
+  if (json.messages) {
     throw new Error(json.messages);
   } else return json;
 });
 
 export const editMovie = createAsyncThunk(
-  "movies/editMovie",
+  'movies/editMovie',
   async (payload) => {
     const response = await fetch(serverUrl, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     });
 
     const json = await response.json();
-    if (!!json.messages) {
+    if (json.messages) {
       throw new Error(json.messages);
     } else return json;
   }
 );
 
 export const deleteMovie = createAsyncThunk(
-  "movies/deleteMovie",
+  'movies/deleteMovie',
   async (movieId) => {
-    await fetch(serverUrl + "/" + movieId, {
-      method: "DELETE"
+    await fetch(`${serverUrl}/${movieId}`, {
+      method: 'DELETE'
     });
     return movieId;
   }
 );
 
 export const moviesSlice = createSlice({
-  name: "movies",
+  name: 'movies',
   initialState: {
     list: [],
     sortBy: sortByDefault,
     totalCount: 0,
     filterBy: [],
-    search: "",
+    search: '',
     fetchWasRun: false
   },
   reducers: {
@@ -97,17 +99,15 @@ export const moviesSlice = createSlice({
       state.search = action.payload;
     },
     filterMovies: (state, action) => {
-      let f = action.payload;
+      const f = action.payload;
 
       if (state.filterBy.includes(f)) {
-        state.filterBy = state.filterBy.filter((el) => {
-          return el !== f;
-        });
+        state.filterBy = state.filterBy.filter((el) => el !== f);
       } else {
         state.filterBy.push(f);
       }
     },
-    skipFiltering: (state, action) => {
+    skipFiltering: (state) => {
       state.filterBy = [];
     }
   },
@@ -121,18 +121,15 @@ export const moviesSlice = createSlice({
       state.list.push(action.payload);
     },
     [addMovie.rejected]: (state, action) => {
-      console.log("Add movie is rejected: ", action.error.message);
+      // eslint-disable-next-line no-console
+      console.log('Add movie is rejected: ', action.error.message);
     },
     [editMovie.fulfilled]: (state, action) => {
-      let index = state.list.findIndex((el) => {
-        return el.id === action.payload.id;
-      });
+      const index = state.list.findIndex((el) => el.id === action.payload.id);
       state.list[index] = action.payload;
     },
     [deleteMovie.fulfilled]: (state, action) => {
-      state.list = state.list.filter((el) => {
-        return el.id !== action.payload;
-      });
+      state.list = state.list.filter((el) => el.id !== action.payload);
     }
   }
 });
@@ -146,17 +143,12 @@ export const {
 } = moviesSlice.actions;
 
 // Returns selected movie from the state
-export const selectSelectedMovie = (state) =>
-  state.movies.list.find((el) => {
-    return el.id === state.dialogs.selectedMovieId;
-  });
+// eslint-disable-next-line max-len
+export const selectSelectedMovie = (state) => state.movies.list.find((el) => el.id === state.dialogs.selectedMovieId);
 
 // Returns edited movie from the state
-export const selectEditedMovie = (state) =>
-  state.movies.list.find((el) => {
-    return el.id === state.dialogs.editedMovieId;
-  });
-
+// eslint-disable-next-line max-len
+export const selectEditedMovie = (state) => state.movies.list.find((el) => el.id === state.dialogs.editedMovieId);
 export const selectSortBy = (state) => state.movies.selectSortBy;
 
 export default moviesSlice.reducer;

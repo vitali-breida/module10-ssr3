@@ -1,12 +1,12 @@
-import ResultsCount from "../Components/ResultsCount";
-import ResultsFilter from "../Components/ResultsFilter";
-import ResultsSort from "../Components/ResultsSort";
-import ResultsBody from "./ResultsBody";
-import Box from "@material-ui/core/Box";
-import { useSelector } from "react-redux";
-import NoMovieFound from "../Components/NoMovieFound";
+import Box from '@material-ui/core/Box';
+import { useSelector } from 'react-redux';
+import ResultsCount from '../Components/ResultsCount';
+import ResultsFilter from '../Components/ResultsFilter';
+import ResultsSort from '../Components/ResultsSort';
+import ResultsBody from './ResultsBody';
+import NoMovieFound from '../Components/NoMovieFound';
 
-export default function Body(props) {
+export default function Body() {
   const totalCount = useSelector((state) => state.movies.totalCount);
   return (
     <>

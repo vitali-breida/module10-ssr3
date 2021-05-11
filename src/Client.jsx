@@ -1,13 +1,14 @@
-import App from "./App";
+import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import createStore from './app/store';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { loadableReady } from '@loadable/component';
 import theme from './theme';
-import { loadableReady } from '@loadable/component'
+import createStore from './app/store';
+import App from './App';
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 const store = createStore(window.PRELOADED_STATE);
 
 function Main() {
@@ -30,6 +31,5 @@ function Main() {
 }
 
 loadableReady(() => {
-  hydrate(<Main />, rootElement)
-})
-
+  hydrate(<Main />, rootElement);
+});

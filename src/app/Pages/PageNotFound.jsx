@@ -1,7 +1,7 @@
-import Footer from "../Containers/Footer";
-import Logo from "../Components/Logo";
-import { Button } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
+import { Button } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import Footer from '../Containers/Footer';
+import Logo from '../Components/Logo';
 
 export default function PageNotFound() {
   return (
@@ -22,4 +22,4 @@ export default function PageNotFound() {
       <Footer />
     </div>
   );
-};
+}

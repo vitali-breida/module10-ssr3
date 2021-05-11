@@ -1,8 +1,8 @@
-import MovieCard from "./MovieCard";
-import { GridList, GridListTile } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { GridList, GridListTile } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import MovieCard from './MovieCard';
 
-export default function ResultsBody(props) {
+export default function ResultsBody() {
   const movies = useSelector((state) => state.movies.list);
 
   return (

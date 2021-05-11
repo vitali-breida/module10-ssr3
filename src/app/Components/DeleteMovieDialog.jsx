@@ -1,10 +1,14 @@
-import React from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
-import { selectIsDeleteMovieDialogVisible, selectEditedMovieId, dialogDeleteMovie, infoMode } from "../../features/dialogsSlice";
-import { deleteMovie } from "../../features/moviesSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import {
+  Button, Dialog, DialogActions, DialogContent, DialogTitle
+} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useHistory } from 'react-router-dom';
+import { deleteMovie } from '../../features/moviesSlice';
+import {
+  selectIsDeleteMovieDialogVisible, selectEditedMovieId, dialogDeleteMovie, infoMode
+} from '../../features/dialogsSlice';
 
 export default function DeleteMovieDialog() {
   const isDeleteMovieDialogVisible = useSelector(
@@ -14,9 +18,9 @@ export default function DeleteMovieDialog() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleClose = (e) => {
-    dispatch(dialogDeleteMovie("close"));
-    dispatch(infoMode({ mode: "off" }));
+  const handleClose = () => {
+    dispatch(dialogDeleteMovie('close'));
+    dispatch(infoMode({ mode: 'off' }));
   };
 
   const handleDelete = (e) => {

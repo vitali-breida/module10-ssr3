@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Button, Menu, MenuItem } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchMovies, selectSortBy, sortMovies } from "../../features/moviesSlice";
+import React, { useState } from 'react';
+import { Button, Menu, MenuItem } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMovies, selectSortBy, sortMovies } from '../../features/moviesSlice';
 
 export default function ResultsSort() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -12,12 +12,12 @@ export default function ResultsSort() {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = (e) => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleSort = (e) => {
-    dispatch(sortMovies(e.currentTarget.dataset["value"]));
+    dispatch(sortMovies(e.currentTarget.dataset.value));
     dispatch(fetchMovies());
     handleClose(e);
   };

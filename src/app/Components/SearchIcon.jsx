@@ -1,14 +1,14 @@
-import SearchIconMUI from "@material-ui/icons/Search";
-import { useDispatch } from "react-redux";
-import { infoMode } from "../../features/dialogsSlice";
-import { useHistory } from "react-router-dom";
+import SearchIconMUI from '@material-ui/icons/Search';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { infoMode } from '../../features/dialogsSlice';
 
 export default function SearchIcon() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleClick = (e) => {
-    dispatch(infoMode({ mode: "off" }));
+  const handleClick = () => {
+    dispatch(infoMode({ mode: 'off' }));
     history.goBack();
   };
 

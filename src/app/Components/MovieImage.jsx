@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Menu, MenuItem } from "@material-ui/core";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { dialogDeleteMovie, dialogEditMovie, selectIsMovieInfoMode, selectSelectedMovieId } from "../../features/dialogsSlice";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { Menu, MenuItem } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {
+  dialogDeleteMovie, dialogEditMovie, selectIsMovieInfoMode, selectSelectedMovieId
+} from '../../features/dialogsSlice';
 
 export default function MovieImage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -16,15 +18,15 @@ export default function MovieImage(props) {
     setAnchorEl(e.currentTarget);
   };
 
-  const closeMenu = (e) => {
+  const closeMenu = () => {
     setAnchorEl(null);
   };
 
   const handleClick = (e) => {
     if (!isInfoMode || props.movieId !== selectedMovieId) {
-      let nextUrl = "/film/".concat(props.movieId);
+      const nextUrl = '/film/'.concat(props.movieId);
 
-      if (history.location.pathname.startsWith("/film")) {
+      if (history.location.pathname.startsWith('/film')) {
         history.replace(nextUrl);
       } else {
         history.push(nextUrl);
@@ -35,12 +37,12 @@ export default function MovieImage(props) {
   };
 
   const handleChooseEdit = (e) => {
-    dispatch(dialogEditMovie({ operation: "open", id: props.movieId }));
+    dispatch(dialogEditMovie({ operation: 'open', id: props.movieId }));
     closeMenu(e);
   };
 
   const handleChooseDelete = (e) => {
-    dispatch(dialogDeleteMovie({ operation: "open", id: props.movieId }));
+    dispatch(dialogDeleteMovie({ operation: 'open', id: props.movieId }));
     closeMenu(e);
   };
 

@@ -1,5 +1,6 @@
+/* eslint-disable global-require */
 const express = require('express');
-const path = require('path');
+
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
@@ -16,10 +17,9 @@ if (process.env.NODE_ENV === 'development') {
   }));
 
   // NOTE: Only the client bundle needs to be passed to `webpack-hot-middleware`.
-  app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')));
+  app.use(webpackHotMiddleware(compiler.compilers.find((c) => c.name === 'client')));
   app.use(webpackHotServerMiddleware(compiler));
-} 
-else {
+} else {
   // const CLIENT_ASSETS_DIR = path.join(__dirname, '../public');
   // const CLIENT_STATS_PATH = path.join(CLIENT_ASSETS_DIR, 'loadable-stats.json');
   // const SERVER_RENDERER_PATH = path.join(__dirname, '../public/js/serverRenderer.js').dafault;
