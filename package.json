@@ -31,6 +31,10 @@
     "@babel/preset-react": "^7.13.13",
     "@loadable/server": "^5.15.0",
     "@loadable/webpack-plugin": "^5.15.0",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.1.21",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "cross-env": "^7.0.3",
@@ -62,7 +66,9 @@
     "start": "cross-env NODE_ENV=development  node ./server",
     "start-prod": "cross-env NODE_ENV=production  node ./server",
     "build-dev": "cross-env NODE_ENV=development webpack --config ./webpack",
-    "build-prod": "cross-env NODE_ENV=production webpack --config ./webpack"
+    "build-prod": "cross-env NODE_ENV=production webpack --config ./webpack",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "browserslist": [
     ">0.2%",
