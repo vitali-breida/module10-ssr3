@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const isDevMod = process.env.NODE_ENV === 'development';
 
@@ -17,6 +18,10 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react'
+    }),
+    !isDevMod && new CompressionPlugin({
+      test: /\.js$/i,
+      algorithm: 'gzip'
     })
   ],
   resolve: {
