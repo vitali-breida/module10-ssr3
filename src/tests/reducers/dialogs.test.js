@@ -1,7 +1,8 @@
-import dialogSlice from "../../features/dialogs/dialogsSlice";
+/* eslint-disable no-undef */
+import dialogSlice from '../../features/dialogsSlice';
 
-describe("Dialogs reducer", () => {
-  it("should return the initial state", () => {
+describe('Dialogs reducer', () => {
+  it('should return the initial state', () => {
     expect(dialogSlice(undefined, {})).toEqual({
       isAddMovieDialogVisible: false,
       isEditMovieDialogVisible: false,
@@ -12,24 +13,24 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle addMovie open", () => {
+  it('should handle addMovie open', () => {
     expect(
       dialogSlice(undefined, {
-        type: "dialogs/dialogAddMovie",
-        payload: "open"
+        type: 'dialogs/dialogAddMovie',
+        payload: 'open'
       })
     ).toMatchObject({
       isAddMovieDialogVisible: true
     });
   });
 
-  it("should handle addMovie close", () => {
+  it('should handle addMovie close', () => {
     expect(
       dialogSlice(
         { isAddMovieDialogVisible: true },
         {
-          type: "dialogs/dialogAddMovie",
-          payload: "close"
+          type: 'dialogs/dialogAddMovie',
+          payload: 'close'
         }
       )
     ).toMatchObject({
@@ -37,11 +38,11 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle editMovie open", () => {
+  it('should handle editMovie open', () => {
     expect(
       dialogSlice(undefined, {
-        type: "dialogs/dialogEditMovie",
-        payload: { operation: "open", id: 10 }
+        type: 'dialogs/dialogEditMovie',
+        payload: { operation: 'open', id: 10 }
       })
     ).toMatchObject({
       isEditMovieDialogVisible: true,
@@ -49,7 +50,7 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle editMovie close", () => {
+  it('should handle editMovie close', () => {
     expect(
       dialogSlice(
         {
@@ -57,8 +58,8 @@ describe("Dialogs reducer", () => {
           editedMovieId: 10
         },
         {
-          type: "dialogs/dialogEditMovie",
-          payload: { operation: "close" }
+          type: 'dialogs/dialogEditMovie',
+          payload: { operation: 'close' }
         }
       )
     ).toMatchObject({
@@ -67,11 +68,11 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle deleteMovie open", () => {
+  it('should handle deleteMovie open', () => {
     expect(
       dialogSlice(undefined, {
-        type: "dialogs/dialogDeleteMovie",
-        payload: { operation: "open", id: 10 }
+        type: 'dialogs/dialogDeleteMovie',
+        payload: { operation: 'open', id: 10 }
       })
     ).toMatchObject({
       isDeleteMovieDialogVisible: true,
@@ -79,7 +80,7 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle deleteMovie close", () => {
+  it('should handle deleteMovie close', () => {
     expect(
       dialogSlice(
         {
@@ -87,8 +88,8 @@ describe("Dialogs reducer", () => {
           editedMovieId: 10
         },
         {
-          type: "dialogs/dialogDeleteMovie",
-          payload: { operation: "close" }
+          type: 'dialogs/dialogDeleteMovie',
+          payload: { operation: 'close' }
         }
       )
     ).toMatchObject({
@@ -97,11 +98,11 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle infoMode on", () => {
+  it('should handle infoMode on', () => {
     expect(
       dialogSlice(undefined, {
-        type: "dialogs/infoMode",
-        payload: { mode: "on", id: 10 }
+        type: 'dialogs/infoMode',
+        payload: { mode: 'on', id: 10 }
       })
     ).toMatchObject({
       isMovieInfoMode: true,
@@ -109,7 +110,7 @@ describe("Dialogs reducer", () => {
     });
   });
 
-  it("should handle infoMode off", () => {
+  it('should handle infoMode off', () => {
     expect(
       dialogSlice(
         {
@@ -117,8 +118,8 @@ describe("Dialogs reducer", () => {
           selectedMovieId: 10
         },
         {
-          type: "dialogs/infoMode",
-          payload: { mode: "off" }
+          type: 'dialogs/infoMode',
+          payload: { mode: 'off' }
         }
       )
     ).toMatchObject({

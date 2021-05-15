@@ -1,0 +1,32 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "linebreak-style": ["error", "windows"],
+        "comma-dangle" : ["error", "never"],
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": "off",
+        "react/destructuring-assignment": "off",
+        "react/forbid-prop-types" : "off",
+        "react/require-default-props" : "off",
+        "jsx-a11y/click-events-have-key-events" : "off",
+        "jsx-a11y/no-noninteractive-element-interactions": ["error", {"handlers" : ["onKeyPress"]}]
+    }
+}
